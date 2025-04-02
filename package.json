@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,6 +11,8 @@
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
     "@tailwindcss/postcss": "^4.1.1",
+    "@untools/ip-url": "^0.1.0",
+    "@untools/qr-cli": "^0.1.0",
     "date-fns": "^4.1.0",
     "next": "15.2.4",
     "postcss": "^8.5.3",

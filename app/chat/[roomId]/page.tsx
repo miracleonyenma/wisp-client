@@ -55,6 +55,11 @@ export default function ChatRoom() {
       setUsers(users);
     });
 
+    // Room messages
+    socket.on("roomMessages", ({ messages }) => {
+      setMessages(messages);
+    });
+
     // New user joined
     socket.on("userJoined", ({ userId }) => {
       setUsers((prevUsers) => [...prevUsers, userId]);
