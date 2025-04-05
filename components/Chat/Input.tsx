@@ -30,7 +30,7 @@ export default function ChatInput({
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      <div className="form-input flex-1">
+      <div className="form-input cont flex-1">
         <input
           ref={inputRef}
           type="text"
