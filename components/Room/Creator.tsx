@@ -1,4 +1,6 @@
 "use client";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PlusSignIcon } from "@hugeicons/core-free-icons";
 
 interface RoomCreatorProps {
   onRoomCreated: (roomId: string) => void;
@@ -71,18 +73,12 @@ export default function RoomCreator({
           </div>
         ) : (
           <>
-            <svg
-              className="icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            Create New Room
+            <HugeiconsIcon
+              icon={PlusSignIcon}
+              className="icon h-6 w-6"
+              strokeWidth={2}
+            />
+            <span>Create New Room</span>
           </>
         )}
       </button>

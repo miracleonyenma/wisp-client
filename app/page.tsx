@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import RoomCreator from "@/components/Room/Creator";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Shield01Icon } from "@hugeicons/core-free-icons";
 
 export default function Home() {
   const router = useRouter();
@@ -93,17 +95,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex flex-col gap-3 items-center text-center">
               <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
-                <svg
+                <HugeiconsIcon
+                  icon={Shield01Icon}
                   className="icon h-8 w-8 text-blue-600 dark:text-blue-300"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
+                  strokeWidth={2}
+                />
               </div>
               <h3 className="text-xl font-bold">Anonymous</h3>
               <p className="text-gray-600 dark:text-gray-300">

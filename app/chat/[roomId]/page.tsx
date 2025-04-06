@@ -7,10 +7,12 @@ import { io, Socket } from "socket.io-client";
 import { ChatMessage as ChatMessageType } from "@/types";
 import ChatInput from "@/components/Chat/Input";
 import ChatMessage from "@/components/Chat/Message";
+import { useRoomsStore } from "@/store/useRoomsStore";
 
 export default function ChatRoom() {
   const { roomId } = useParams();
   const router = useRouter();
+  const { rooms, addRoom } = useRoomsStore();
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [users, setUsers] = useState<string[]>([]);
@@ -20,6 +22,8 @@ export default function ChatRoom() {
 
   // Initialize Socket.io connection
   useEffect(() => {
+    console.log("rooms", rooms);
+
     const SOCKET_URL =
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
     const newSocket = io(SOCKET_URL);
@@ -28,8 +32,24 @@ export default function ChatRoom() {
       setIsConnected(true);
       console.log("Connected to socket server");
 
+      // check if room exists
+      if (roomId && typeof roomId === "string") {
+        console.log("roomId", roomId);
+
+        const existingRoom = rooms.find((room) => room.id === roomId);
+        if (existingRoom) {
+          // addRoom(existingRoom);
+          return newSocket.emit("joinRoom", roomId, existingRoom.userId);
+        }
+      }
+
       // Join the room
       newSocket.emit("joinRoom", roomId);
+      // if no rooms with the same id, add it
+      const existingRoom = rooms.find((room) => room.id === roomId);
+      if (!existingRoom) {
+        addRoom({ id: roomId as string, userId: newSocket?.id as string });
+      }
     });
 
     newSocket.on("disconnect", () => {
@@ -44,7 +64,7 @@ export default function ChatRoom() {
       newSocket.emit("leaveRoom", roomId);
       newSocket.disconnect();
     };
-  }, [roomId]);
+  }, [addRoom, roomId, rooms]);
 
   // Set up socket event listeners
   useEffect(() => {
@@ -187,6 +207,10 @@ export default function ChatRoom() {
         console.error("Failed to copy room ID:", error);
       });
   };
+
+  useEffect(() => {
+    console.log("rooms", rooms);
+  }, [rooms]);
 
   return (
     <main className="flex flex-col h-screen">
