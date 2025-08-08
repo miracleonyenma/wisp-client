@@ -212,7 +212,8 @@ export default function ChatRoom() {
 
   const handleShare = async () => {
     const roomUrl = `${window.location.origin}/chat/${roomId}`;
-
+    // Always show QR code modal
+    setShowQR(true);
     if (navigator.share) {
       try {
         await navigator.share({
